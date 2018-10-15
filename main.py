@@ -36,7 +36,12 @@ class Argument():
         parser.add_argument('--batch-size', default=16, type=int)
         parser.add_argument('--gpu_id', default=0, type=int)
 
-
+        
+        #preprocc
+        pre_parser = subparsers.add_parser(name='preprocessing')
+        pre_parser.add_argument('srcpath')
+        pre_parser.add_argument('tarpath')
+        pre_parser.set_defaults(func=preprocessing_pipeline)
         # train
         train_parser = subparsers.add_parser(name='train')
         train_parser.add_argument('--char-dim', default=10, type=int)
@@ -71,9 +76,9 @@ class Argument():
 
 
         self.args = parser.parse_args()
-        #print(self.args)
         # TODO
-        self.load_arg_from_config()
+        if self.args.command == 'train':
+            self.load_arg_from_config()
 
     def load_arg_from_config(self):
         self.config_to_arg(self.args.config_module_name)
@@ -99,6 +104,10 @@ class Argument():
     def get_model_args(self,field):
         return {"char_vocab_size":len(field.get_char_vocab()),"char_dim":self.args.char_dim,"char_channel_num":self.args.char_channel_num,"char_channel_width":self.args.char_channel_width,\
                 "word_vocab_size":len(field.get_word_vocab()),"word_dim":self.args.word_dim,"dropout_rate":self.args.dropout_rate}
+
+def preprocessing_pipeline(args):
+    from data import charspan_drcd_preprocessing
+    charspan_drcd_preprocessing(args.srcpath,args.tarpath)
 
 def train_pipeline(args):
     field = data.SpanFieldCollection()
