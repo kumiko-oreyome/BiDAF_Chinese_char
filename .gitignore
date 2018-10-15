@@ -1,0 +1,10 @@
+/.data
+*__pycache__
+requirements.txt
+.vector_cache
+runs
+saved_models
+prediction*
+*.json
+exps/
+tmp.txt
