@@ -145,6 +145,9 @@ def demo_pipeline(args):
     test_loader = SpanDataLoader(args.demopath,field,demo_flag=True)
     test_iter = test_loader.get_batchiter(2,args.gpu_id)
     model = model.to(test_iter.get_device())
+    print('question')
+    print(obj["question"])
+
     print('answer')
     print(rc.prediction(model,test_iter,loss_criterion=None))
 
