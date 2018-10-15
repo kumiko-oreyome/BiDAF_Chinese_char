@@ -51,7 +51,7 @@ class Argument():
         train_parser.add_argument('--dev-path', default=None)
         
         train_parser.add_argument('--dropout_rate', default=0.2, type=float)
-        train_parser.add_argument('--epoch_num', default=100, type=int)
+        train_parser.add_argument('--epoch-num', default=100, type=int)
         train_parser.add_argument('--exp-decay-rate', default=0.999, type=float)
         #parser.add_argument('--hidden-dim', default=10, type=int)
         train_parser.add_argument('--learning-rate', default=0.5, type=float)
@@ -102,7 +102,7 @@ class Argument():
     
 
     def get_model_args(self,field):
-        return {"char_vocab_size":len(field.get_char_vocab()),"char_dim":self.args.char_dim,"char_channel_num":self.args.char_channel_num,"char_channel_width":self.args.char_channel_width,\
+        return {"char_vocab_size":len(field.get_char_vocab()),"char_dim":self.args.char_dim,"char_channel_num":self.args.char_channel_num,"char_channel_width":1,\
                 "word_vocab_size":len(field.get_word_vocab()),"word_dim":self.args.word_dim,"dropout_rate":self.args.dropout_rate}
 
 def preprocessing_pipeline(args):
