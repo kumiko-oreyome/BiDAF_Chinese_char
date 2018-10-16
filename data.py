@@ -1,4 +1,3 @@
-
 import re,json,itertools,os,util
 import torch
 from torchtext import data
@@ -14,11 +13,6 @@ def dump_as_lines(l,path):
             json.dump(item,f,ensure_ascii=False)
             print('',file=f)
 
-
-# "我是 小明" -->  "我是小明" --> ["我","是","小","明"]
-def fake_tokenize(text):
-    text = text.replace(" ","")
-    return [c for c in text]
     
 def charspan_drcd_preprocessing(src_path,tar_path):
     from drcd import RawCorpus
@@ -41,8 +35,8 @@ class SpanFieldCollection():
     def __init__(self):
         self.RAW = data.RawField()
         self.CHAR_NESTING = data.Field(batch_first=True, tokenize=list, lower=True)
-        self.CHAR = data.NestedField(self.CHAR_NESTING, tokenize=fake_tokenize)
-        self.WORD = data.Field(batch_first=True, tokenize=fake_tokenize, lower=True, include_lengths=True)
+        self.CHAR = data.NestedField(self.CHAR_NESTING, tokenize=list)
+        self.WORD = data.Field(batch_first=True, tokenize=list, lower=True, include_lengths=True)
         self.LABEL = data.Field(sequential=False, unk_token=None, use_vocab=False)
 
     #https://discuss.pytorch.org/t/aligning-torchtext-vocab-index-to-loaded-embedding-pre-trained-weights/20878/2

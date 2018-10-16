@@ -8,3 +8,4 @@ prediction*
 *.json
 exps/
 tmp.txt
+./datas
